@@ -9,7 +9,7 @@
 - 10 Most Common Reasons Kubernetes Deployments Fail: https://kukulinski.com/10-most-common-reasons-kubernetes-deployments-fail-part-1/
 - SLIs/SLOs: https://github.com/kubernetes/community/blob/master/sig-scalability/slos/slos.md
 - Services `curl: (52) Empty reply from server`:
-  - Check service:
+  - Check service: Lệnh kiểm tra services
 
     ```
     kubectl get svc
@@ -18,7 +18,7 @@
     myapp-greeting                  LoadBalancer   10.100.144.214   ae8edb3e298f211e9b81a02ee809dbcd-201517527.us-west-2.elb.amazonaws.com   80:30947/TCP   63s
     ```
 
-  - Check pods:
+  - Check pods: Kiểm tra số lượng pod
 
     ```
     kubectl get pods
@@ -35,7 +35,7 @@
     myapp-greeting-84df4cf76-fs5hr                   0/1     CrashLoopBackOff   2          44s
     ```
 
-  - Describe pod:
+  - Describe pod: Thông tin của pod
 
     ```
     kubectl describe pod/myapp-greeting-84df4cf76-fs5hr
@@ -57,7 +57,7 @@
       ```
       ```
 
-    - Run Docker image:
+    - Run Docker image: 
 
       ```
       docker container run -p 80:8080 -it arungupta/greeting:prom
@@ -84,7 +84,7 @@
 
   Diagonsis: Takes about 2-3 mins for the ELB to be available.
 
-- kubectl not working, specifically giving error `Unable to connect to the server: net/http: TLS handshake timeout`
+- kubectl not working, (kiểm tra khi không thể chạy được kubeclt) specifically giving error `Unable to connect to the server: net/http: TLS handshake timeout`
   - check Internet connection
   - check KUBECONFIG
   - check context `kubectl config get-contexts`
@@ -92,15 +92,15 @@
     - Get API server address
     - POST `<address>:8080/healthz` or `<address>:8080/healthz/ping` ??
   - check kubectl skew, supporte +/-1 version of API server
-- Kubectl latency is too high?
+- Kubectl latency is too high? Kiểm tra độ trễ của kubeclt
   - What is the SLO?
-  - check API server logs from Container Insights
+  - check API server logs from Container Insights (Kiểm tra log API của server)
   - What instance type is used for etcd? IOPS-bound?
   - Use an SSD locally attached to the node instead of over-network?
 - How do we make sure etcd scales? How big is the typical database? What are the limits around it?
   - For large clusters, configure API server to store events in a dedicated etcd instance
-- Building large k8s clusters: https://www.youtube.com/watch?v=kDwQ991NCkg
-- Why HPA is not scaling pods?
+- Building large k8s clusters: (Dựng large k8s cluster) https://www.youtube.com/watch?v=kDwQ991NCkg
+- Why HPA is not scaling pods? 
   - Is metrics-server installed?
 - Why is Cluster Autoscaler not scaling the cluster?
   - Is it even installed? 
